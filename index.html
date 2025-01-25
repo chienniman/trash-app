@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>垃圾車資訊</title>
+    <script src="./skipCors.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .info {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="info" id="info">載入中...</div>
+    </div>
+
+    <script>
+        function fetchData() {
+            const seq = 27217;
+            const timestamp = new Date().getTime();
+            const url = `https://cleaner.epb.taichung.gov.tw/lineestime.aspx?seq=${seq}&_=${timestamp}`;
+            
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('info').innerText = data;
+                })
+                .catch(error => {
+                    document.getElementById('info').innerText = '資料加載錯誤';
+                    console.error('Error fetching data:', error);
+                });
+        }
+
+        // 初始加載
+        fetchData();
+        // 每30秒重新加載一次數據
+        setInterval(fetchData, 30000);
+    </script>
+</body>
+</html>
