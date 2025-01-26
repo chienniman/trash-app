@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>垃圾車資訊</title>
-    <script src="./skipCors.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -37,7 +36,7 @@
         function fetchData() {
             const seq = 27217;
             const timestamp = new Date().getTime();
-            const url = `https://cleaner.epb.taichung.gov.tw/lineestime.aspx?seq=${seq}&_=${timestamp}`;
+            const url = `https://cors-anywhere-production-b5a8.up.railway.app/https://cleaner.epb.taichung.gov.tw/lineestime.aspx?seq=${seq}&_=${timestamp}`;
             
             fetch(url)
                 .then(response => response.text())
@@ -50,9 +49,7 @@
                 });
         }
 
-        // 初始加載
         fetchData();
-        // 每30秒重新加載一次數據
         setInterval(fetchData, 30000);
     </script>
 </body>
